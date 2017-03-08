@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'superlists.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'testdriven_django',
-        'USER': 'superlists',
-        'PASSWORD': '2g4@#hONeTAJ',
+        'NAME': get_env_variable('DB_NAME'),
+        'USER': get_env_variable('DB_USER'),
+        'PASSWORD': get_env_variable('DB_PASS'),
         'HOST': 'localhost',
         'PORT': '',
     }
