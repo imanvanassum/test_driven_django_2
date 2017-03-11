@@ -1,0 +1,31 @@
+# Unfortunately because system daemon doesn't seem to want to start a virtualenv made with envwrapper's workon command, I had to find a workaround to automatically start
+# my gunicorn command. In the end I got it to work by calling a bash script from the systemd script.
+
+#
+# In your home directory place the following bash script and make sure your virtualenvwrapper lines are in .profile instead of .bashrc
+#
+#
+
+#!/bin/bash
+
+source /home/testinggoat/.profile
+workon django-test
+cd /home/testinggoat/sites/django-test.iman.vanassum.net/source
+/home/testinggoat/.virtualenvs/django-test/bin/gunicorn --bind unix:/tmp/django-test.iman.vanassum.net.socket superlists.wsgi:application
+
+#
+# In your /etc/systemd/system folder make a gunicorn-<domain name> file with the following content:
+#
+#
+
+[Unit]
+Description=Gunicorn server for django-test.iman.vanassum.net
+
+[Service]
+Restart=on-failure
+User=testinggoat
+WorkingDirectory=/home/testinggoat/sites/django-test.iman.vanassum.net/source
+ExecStart=/bin/bash /home/testinggoat/gunicorn.sh 
+
+[Install]
+WantedBy=multi-user.target
