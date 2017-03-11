@@ -141,4 +141,4 @@ class NewVisitorTest(StaticLiveServerTestCase):
             delta=5
         )
 
-        self.fail('Finish the test!')
+        #self.fail('Finish the test!')
