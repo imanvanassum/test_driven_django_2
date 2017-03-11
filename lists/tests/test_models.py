@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.exceptions import AssertionError
 from lists.models import Item, List
 
 class ListAndItemModelTest(TestCase):
