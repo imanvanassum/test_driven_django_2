@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+
+  tasks:
+      - name: check if Postgres is installed
+        shell: dpkg-query -W 'postgresql'
+        register: is_postgres
+
+      - name: install postgresql if missing
+        apt:  name=postgresql state=present
+        when: is_postgres|failed
+
+      - name: 
