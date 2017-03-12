@@ -1,8 +1,0 @@
-[live]
-django.iman.vanassum.net ansible_user=root
-
-[staging]
-django-test.iman.vanassum.net ansible_user=root
-
-[local]
-localhost ansible_user=root ansible_ssh_port=6666 ansible_host=127.0.0.1
