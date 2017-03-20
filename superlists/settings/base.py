@@ -136,3 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
+
+
+# Email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'phantombull@gmail.com'
+EMAIL_HOST_PASSWORD = get_env_variable('EMAIL_PASS')
+EMAIL_USE_TLS = True
