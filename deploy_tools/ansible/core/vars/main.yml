@@ -1,0 +1,9 @@
+---
+# Packages to be installed
+system_packages:
+  - build-essential
+  - git
+  - nginx
+  - python-dev
+  - libffi-dev
+  - postgresql
