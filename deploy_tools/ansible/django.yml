@@ -1,0 +1,17 @@
+---
+
+- name: install roles
+  hosts: all
+  roles:
+    - common
+    - virtualenv
+    - postgres
+
+  vars_prompt:
+    - name: "prompt_dbname"
+      prompt: "Enter the database name to create"
+    - name: "prompt_dbuser"
+      prompt: "Enter the database user to create"
+    - name: "prompt_dbpass"
+      prompt: "Enter the password to go with user"
+      private: yes

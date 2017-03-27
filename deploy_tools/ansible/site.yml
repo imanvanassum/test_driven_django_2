@@ -1,0 +1,6 @@
+---
+
+# This playbook deploys a Django project to a server, and includes its very own
+# virtual environment, required packages and database.
+
+- include: django.yml

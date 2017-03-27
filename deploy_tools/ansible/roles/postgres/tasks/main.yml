@@ -1,0 +1,64 @@
+---
+
+#- name: aptitude checks
+#  hosts: all
+#  become: yes
+#  gather_facts: no
+
+#  tasks:
+- name: ensure apt cache is up to do date
+  become: yes
+  apt: update_cache=yes
+- name: ensure packages are installed
+  become: yes
+  apt: name={{item}}
+  with_items:
+    - postgresql
+    - libpq-dev
+    - python-psycopg2
+
+
+#- name: set up new PostgreSQL database
+#  hosts: all
+#  become: yes
+#  become_user: postgres
+#  gather_facts: no
+
+#  vars:
+#    dbname: "{{prompt_dbname}}"
+#    dbuser: "{{prompt_dbuser}}"
+#    dbpassword: "{{prompt_dbpass}}"
+
+#  tasks:
+- block:
+  - name: ensure database is created
+    become: yes
+    become_user: postgres
+    postgresql_db: name={{prompt_dbname}}
+
+  - name: ensure user has access to the database
+    postgresql_user:
+      db: "{{prompt_dbname}}"
+      user: "{{prompt_dbuser}}"
+      login_user: "{{prompt_dbuser}}"
+      login_password: "{{prompt_dbpass}}"
+      priv: ALL
+
+  - name: ensure user does not have unnecessary privileges
+    postgresql_user:
+      db: "{{prompt_dbname}}"
+      login_user: "{{prompt_dbuser}}"
+      login_password: "{{prompt_dbpass}}"
+      user: "{{prompt_dbuser}}"
+      no_password_changes: true
+      role_attr_flags: NOSUPERUSER,NOCREATEDB
+
+  - name: ensure no other user can access the database
+    postgresql_privs:
+      db: "{{prompt_dbname}}"
+      login_user: "{{prompt_dbuser}}"
+      login_password: "{{prompt_dbpass}}"
+      role: PUBLIC
+      type: database
+      priv: ALL
+      state: absent

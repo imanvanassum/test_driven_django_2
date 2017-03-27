@@ -4,6 +4,5 @@ system_packages:
   - build-essential
   - git
   - nginx
-  - python-dev
   - libffi-dev
   - postgresql
